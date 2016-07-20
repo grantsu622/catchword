@@ -1,0 +1,13 @@
+執行方式:
+python catchword-txt.py <source file> <output file>
+ex:
+python catchword-txt.py b.txt c.txt
+
+source file 限制:
+單字後需換行
+ex:
+boot
+text
+.
+.
+.
