@@ -60,15 +60,24 @@ class GetIdList(SGMLParser):
         if self.getdata:  
             self.IDlist.append(text)  
     def printID(self):  
+        i3=0
         for i in self.IDlist:  
+        #if self.IDlist:
             #print i.decode('utf-8') 
             #fw.write(i.deconde('utf-8'))
             i1 = unicode(i, 'utf-8')
             fw.write(i1[3:])
-            print i1[3:] #¦C¦L¸ÑÄÀ
-
+            
+            i3=i3 + 1
+            #print i3
+            #i2 = i1.split()
+            #print self.IDlist
+            #print i1[3:] #¦C¦L¸ÑÄÀ
+            #print i2[3:] #¦C¦L¸ÑÄÀ
             fw.write('\n')
             #return i.decode('utf-8')
+            if i3 == 1:
+                return
             
 
 while True :
