@@ -26,7 +26,7 @@ f = open(sys.argv[1], 'r')
 fw = codecs.open(foldname + "/" + sys.argv[2], 'w', 'utf-8')
 flose = codecs.open(foldname + "/" + 'lose.txt', 'w', 'utf-8')
 
-
+fdebug = codecs.open(foldname + "/" + 'debug.txt', 'w', 'utf-8')
 
 #Parse word 分解單字
 from sgmllib import SGMLParser  
@@ -80,6 +80,60 @@ class GetIdList(SGMLParser):
                 return
             
 
+#Parse word 分解動名詞
+from sgmllib import SGMLParser  
+class GetSpeechList(SGMLParser):  
+    def reset(self):  
+        self.IDlist = []  
+        self.flag = False  
+        self.getdata = False  
+        SGMLParser.reset(self)  
+          
+    def start_div(self, attrs):  
+        for k,v in attrs: 
+            if k == 'class' and v == 'compTitle mb-10':
+                self.flag = True
+                #print(attrs)
+                return  
+  
+    def end_div(self):
+        self.flag = False  
+
+    def start_h3(self, attrs):  
+        if self.flag == False:  
+            return
+        self.getdata = True
+
+    def end_h3(self):
+        if self.getdata:  
+            self.getdata = False  
+    def handle_data(self, text):
+        if self.getdata:  
+            self.IDlist.append(text)  
+    def printID(self):  
+        i3=0
+        for i in self.IDlist:  
+        #if self.IDlist:
+            #print i.decode('utf-8') 
+            #fw.write(i.deconde('utf-8'))
+            i3=i3 + 1
+            if i3 == 1: 
+                continue
+            i1 = unicode(i, 'utf-8')
+            i2 = i1.split('.')
+            print i2[0]
+            fw.write(i2[0])
+            
+            #print i3
+            #i2 = i1.split()
+            #print self.IDlist
+            #print i1 #列印解釋
+            #print i2[3:] #列印解釋
+            fw.write(',')
+            #return i.decode('utf-8')
+            if i3 == 2:
+                return
+            
 while True :
     i = f.readline()
     if i=='': break
@@ -100,16 +154,30 @@ while True :
     except IndexError:
         flose.write(i)
         continue
+    
+    
+    #print content
+    #fdebug.write(content)
+    
     urllib.urlretrieve(urls[0], foldname + "/" + i[0:len(i)-1] + ".mp3")
     
+    fw.write(i[0:len(i)-1] + " ")  #寫入英文單字
+    ######
+    explanation = GetSpeechList()
+    explanation.feed(content)
+    explanation.printID()   #寫入詞性
+    
+    ######
     explanation = GetIdList()
     explanation.feed(content)
     #fistexplanation = explanation.printID()
-    fw.write(i[0:len(i)-1] + " ")  #寫入英文單字
     explanation.printID() #寫入註解
     #fw.write('\n')
     #print fistexplanation
-    
+
+
 f.close()
 fw.close()
 flose.close()
+
+fdebug.close()
