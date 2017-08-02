@@ -26,7 +26,7 @@ f = open(sys.argv[1], 'r')
 fw = codecs.open(foldname + "/00_" + sys.argv[2], 'w', 'utf-8')
 flose = codecs.open(foldname + "/" + '00_lose.txt', 'w', 'utf-8')
 
-#fdebug = codecs.open(foldname + "/" + '00_debug.txt', 'w', 'utf-8')
+fdebug = codecs.open(foldname + "/" + 'debug.txt', 'w', 'utf-8')
 
 #Parse word ¤À¸Ñ³æ¦r
 from sgmllib import SGMLParser  
@@ -180,4 +180,4 @@ f.close()
 fw.close()
 flose.close()
 
-#fdebug.close()
+fdebug.close()
