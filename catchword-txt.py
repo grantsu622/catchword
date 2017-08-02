@@ -23,10 +23,10 @@ if not os.path.exists(foldname):
 f = open(sys.argv[1], 'r')
 #fw = open('c.txt', 'w')
 #fw = codecs.open('c.txt', 'w', 'utf-8')
-fw = codecs.open(foldname + "/" + sys.argv[2], 'w', 'utf-8')
-flose = codecs.open(foldname + "/" + 'lose.txt', 'w', 'utf-8')
+fw = codecs.open(foldname + "/00_" + sys.argv[2], 'w', 'utf-8')
+flose = codecs.open(foldname + "/" + '00_lose.txt', 'w', 'utf-8')
 
-fdebug = codecs.open(foldname + "/" + 'debug.txt', 'w', 'utf-8')
+#fdebug = codecs.open(foldname + "/" + '00_debug.txt', 'w', 'utf-8')
 
 #Parse word ¤À¸Ñ³æ¦r
 from sgmllib import SGMLParser  
@@ -121,7 +121,7 @@ class GetSpeechList(SGMLParser):
                 continue
             i1 = unicode(i, 'utf-8')
             i2 = i1.split('.')
-            print i2[0]
+            #print i2[0]
             fw.write(i2[0])
             
             #print i3
@@ -180,4 +180,4 @@ f.close()
 fw.close()
 flose.close()
 
-fdebug.close()
+#fdebug.close()
