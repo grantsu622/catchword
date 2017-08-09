@@ -26,7 +26,7 @@ f = open(sys.argv[1], 'r')
 fw = codecs.open(foldname + "/00_" + sys.argv[2], 'w', 'utf-8')
 flose = codecs.open(foldname + "/" + '00_lose.txt', 'w', 'utf-8')
 
-fdebug = codecs.open(foldname + "/" + 'debug.txt', 'w', 'utf-8')
+#fdebug = codecs.open(foldname + "/" + 'debug.txt', 'w', 'utf-8')
 
 #Parse word 分解單字
 from sgmllib import SGMLParser  
@@ -161,7 +161,9 @@ while True :
     
     urllib.urlretrieve(urls[0], foldname + "/" + i[0:len(i)-1] + ".mp3")
     
-    fw.write(i[0:len(i)-1] + " ")  #寫入英文單字
+    fw.write(i[0:len(i)-1])  #寫入英文單字
+
+    fw.write('  &:  &:  ')   #寫入 &:
     ######
     explanation = GetSpeechList()
     explanation.feed(content)
@@ -180,4 +182,4 @@ f.close()
 fw.close()
 flose.close()
 
-fdebug.close()
+#fdebug.close()
